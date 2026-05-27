@@ -1,0 +1,65 @@
+.page {
+  flex: 1;
+  width: 100%;
+  min-height: 100vh;
+  padding: 48px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+}
+
+.headerSpacer {
+  flex: 1;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.centerBlock {
+  width: 50%;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.listArea {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.addBtn {
+  width: 36px;
+  height: 36px;
+  border: 2px solid #222;
+  border-radius: 8px;
+  background: transparent;
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  transition: background 0.15s, color 0.15s;
+}
+
+.addBtn:hover {
+  background: #222;
+  color: white;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}

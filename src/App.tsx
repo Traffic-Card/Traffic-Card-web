@@ -1,36 +1,26 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
-import './App.css'
-import { AppLayout } from './app/AppLayout'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { AppStateProvider } from './app/AppStateContext'
-import { ProtectedRoute } from './app/ProtectedRoute'
-import { LoginRoutePage } from './pages/LoginRoutePage'
-import { MainRoutePage } from './pages/MainRoutePage'
-import { MyRegionEditPage } from './pages/MyRegionEditPage'
-import { MyRegionPage } from './pages/MyRegionPage'
-import { NotFoundPage } from './pages/NotFoundPage'
-import { SignupRoutePage } from './pages/SignupRoutePage'
+import MainPage from './app/main/page'
+import LoginPage from './app/login/page'
+import SignupPage from './app/signup/page'
+import RegionPage from './app/region/page'
+import RegionEditPage from './app/region/edit/page'
+import NotFoundPage from './app/not-found/page'
+import { ROUTES } from './constants/routes'
 
-function App() {
+export default function App() {
   return (
-    <BrowserRouter>
-      <AppStateProvider>
+    <AppStateProvider>
+      <BrowserRouter>
         <Routes>
-          <Route element={<AppLayout />}>
-            <Route path="/" element={<MainRoutePage />} />
-            <Route path="/login" element={<LoginRoutePage />} />
-            <Route path="/signup" element={<SignupRoutePage />} />
-            <Route element={<ProtectedRoute />}>
-              <Route path="/my-region" element={<MyRegionPage />} />
-              <Route path="/my-region/edit" element={<MyRegionEditPage />} />
-            </Route>
-            <Route path="/my-map" element={<Navigate to="/my-region" replace />} />
-            <Route path="/my-map/edit" element={<Navigate to="/my-region/edit" replace />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Route>
+          <Route path={ROUTES.MAIN}        element={<MainPage />} />
+          <Route path={ROUTES.LOGIN}       element={<LoginPage />} />
+          <Route path={ROUTES.SIGNUP}      element={<SignupPage />} />
+          <Route path={ROUTES.REGION}      element={<RegionPage />} />
+          <Route path={ROUTES.REGION_EDIT} element={<RegionEditPage />} />
+          <Route path="*"                  element={<NotFoundPage />} />
         </Routes>
-      </AppStateProvider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </AppStateProvider>
   )
 }
-
-export default App

@@ -1,63 +1,67 @@
 import type {
-  FavoriteRegionResponse,
-  FavoriteRegionSyncRequest,
-  LoginRequest,
-  MemberDetailResponse,
   SignupRequest,
+  LoginRequest,
   TokenResponse,
+  FavoriteRegionRequest,
+  FavoriteRegionResponse,
 } from '../types/api'
-import { getAccessToken } from './storage'
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8080'
+const BASE_URL = (import.meta.env.VITE_API_BASE_URL as string) ?? ''
 
-async function request<T>(path: string, init?: RequestInit) {
+export function getAccessToken(): string | null {
+  return localStorage.getItem('accessToken')
+}
+
+export function setTokens(accessToken: string, refreshToken: string): void {
+  localStorage.setItem('accessToken', accessToken)
+  localStorage.setItem('refreshToken', refreshToken)
+}
+
+export function clearTokens(): void {
+  localStorage.removeItem('accessToken')
+  localStorage.removeItem('refreshToken')
+}
+
+async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
   const token = getAccessToken()
-  const response = await fetch(`${API_BASE_URL}${path}`, {
-    ...init,
-    headers: {
-      'Content-Type': 'application/json',
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      ...(init?.headers ?? {}),
-    },
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+    ...((options.headers as Record<string, string>) ?? {}),
+  }
+  if (token) headers['Authorization'] = `Bearer ${token}`
+
+  const res = await fetch(`${BASE_URL}${path}`, { ...options, headers })
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}))
+    throw new Error(body.message ?? `HTTP ${res.status}`)
+  }
+  if (res.status === 204) return undefined as T
+  return res.json()
+}
+
+export async function signup(data: SignupRequest): Promise<void> {
+  await request<void>('/api/v1/members/signup', {
+    method: 'POST',
+    body: JSON.stringify(data),
   })
-
-  if (!response.ok) {
-    const text = await response.text()
-    throw new Error(text || `Request failed with status ${response.status}`)
-  }
-
-  if (response.status === 204) {
-    return null as T
-  }
-
-  return (await response.json()) as T
 }
 
-export const memberApi = {
-  signup(payload: SignupRequest) {
-    return request<MemberDetailResponse>('/api/v1/members/signup', {
-      method: 'POST',
-      body: JSON.stringify(payload),
-    })
-  },
-
-  login(payload: LoginRequest) {
-    return request<TokenResponse>('/api/v1/members/login', {
-      method: 'POST',
-      body: JSON.stringify(payload),
-    })
-  },
+export async function loginApi(data: LoginRequest): Promise<TokenResponse> {
+  const tokens = await request<TokenResponse>('/api/v1/members/login', {
+    method: 'POST',
+    body: JSON.stringify(data),
+  })
+  setTokens(tokens.accessToken, tokens.refreshToken)
+  return tokens
 }
 
-export const favoriteRegionApi = {
-  findAll() {
-    return request<FavoriteRegionResponse[]>('/api/v1/regions')
-  },
+export async function getRegions(): Promise<FavoriteRegionResponse[]> {
+  return request<FavoriteRegionResponse[]>('/api/v1/regions')
+}
 
-  sync(payload: FavoriteRegionSyncRequest) {
-    return request<FavoriteRegionResponse[]>('/api/v1/regions', {
-      method: 'PUT',
-      body: JSON.stringify(payload),
-    })
-  },
+export async function putRegions(regions: FavoriteRegionRequest[]): Promise<void> {
+  await request<void>('/api/v1/regions', {
+    method: 'PUT',
+    body: JSON.stringify({ regions }),
+  })
 }

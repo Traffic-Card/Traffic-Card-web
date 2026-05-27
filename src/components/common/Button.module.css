@@ -1,0 +1,37 @@
+.btn {
+  padding: 6px 16px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+
+.outline {
+  border: 2px solid #222;
+  background: transparent;
+  color: #222;
+}
+
+.outline:hover {
+  background: #222;
+  color: white;
+}
+
+.solid {
+  border: 2px solid #222;
+  background: #222;
+  color: white;
+}
+
+.solid:hover {
+  background: #444;
+  border-color: #444;
+}
+
+.btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+  pointer-events: none;
+}

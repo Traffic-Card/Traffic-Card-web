@@ -1,0 +1,77 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  width: 80%;
+  max-width: 860px;
+  height: 80vh;
+  background: white;
+  border: 3px solid #222;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.mapWrapper {
+  flex: 1;
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.mapCanvas {
+  width: 100%;
+  height: 100%;
+}
+
+.centerPin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  pointer-events: none;
+  z-index: 100;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.35));
+}
+
+.msg {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  color: #666;
+  pointer-events: none;
+}
+
+.footer {
+  flex-shrink: 0;
+  position: relative;
+  z-index: 10;
+  padding: 14px 20px;
+  border-top: 2px solid #e5e5e5;
+  background: white;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.address {
+  flex: 1;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
