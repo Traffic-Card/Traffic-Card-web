@@ -4,4 +4,5 @@ export const ROUTES = {
   SIGNUP: '/signup',
   REGION: '/region',
   REGION_EDIT: '/region/edit',
+  ROUTE: '/route',
 } as const

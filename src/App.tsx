@@ -5,6 +5,7 @@ import LoginPage from './app/login/page'
 import SignupPage from './app/signup/page'
 import RegionPage from './app/region/page'
 import RegionEditPage from './app/region/edit/page'
+import RoutePage from './app/route/page'
 import NotFoundPage from './app/not-found/page'
 import { ROUTES } from './constants/routes'
 
@@ -18,6 +19,7 @@ export default function App() {
           <Route path={ROUTES.SIGNUP}      element={<SignupPage />} />
           <Route path={ROUTES.REGION}      element={<RegionPage />} />
           <Route path={ROUTES.REGION_EDIT} element={<RegionEditPage />} />
+          <Route path={ROUTES.ROUTE}       element={<RoutePage />} />
           <Route path="*"                  element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>

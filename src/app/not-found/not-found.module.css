@@ -9,10 +9,10 @@
 .code {
   font-size: 4rem;
   font-weight: 700;
-  color: #222;
+  color: var(--c-blue);
 }
 
 .message {
   font-size: 1rem;
-  color: #666;
+  color: var(--c-gray);
 }

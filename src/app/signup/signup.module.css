@@ -2,82 +2,155 @@
   flex: 1;
   width: 100%;
   min-height: 100vh;
-  padding: 48px;
-  background: white;
   display: flex;
   flex-direction: column;
 }
 
-.title {
-  font-size: 2rem;
-  font-weight: 700;
-  text-align: center;
+/* ── 좌우 #ebebeb / 중앙 #ffffff ── */
+.contentArea {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  background: #ebebeb;
 }
 
-.formArea {
-  flex: 1;
+.contentInner {
+  width: 1000px;
+  background: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-bottom: 200px;
+  padding: 60px 20px;
 }
 
-.form {
+/* ── Form Card ── */
+.formCard {
   width: 100%;
-  max-width: 540px;
+  max-width: 360px;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.field {
-  display: grid;
-  grid-template-columns: 150px 1fr;
-  align-items: center;
-  gap: 16px;
+.title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--c-dark);
+  text-align: center;
+  letter-spacing: -0.3px;
 }
 
-.label {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #222;
-  text-align: right;
+/* ── Input Fields ── */
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.inputField {
+  display: flex;
+  align-items: center;
+  background: #f4f4f4;
+  border-radius: 10px;
+  padding: 0 16px;
+  gap: 12px;
+  transition: background 0.15s;
+}
+
+.inputField:focus-within {
+  background: #eef6fd;
+}
+
+/* 주소 필드: 전체 클릭 가능 */
+.clickable {
+  cursor: pointer;
+}
+
+.clickable:hover {
+  background: #eeeeee;
 }
 
 .input {
-  padding: 8px 12px;
-  border: 2px solid #222;
-  border-radius: 8px;
-  font-size: 1rem;
-  outline: none;
-  width: 100%;
-}
-
-.input:focus {
-  border-color: #555;
-}
-
-/* 거주지 행: input + 지도 버튼 나란히 */
-.addressRow {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
-.addressRow .input {
   flex: 1;
-  width: auto;
+  border: none;
+  background: transparent;
+  padding: 14px 0;
+  font-size: 0.95rem;
+  outline: none;
+  color: var(--c-dark);
 }
 
+.input::placeholder {
+  color: #b0b0b0;
+}
+
+/* readOnly 커서 */
+.clickable .input {
+  cursor: pointer;
+}
+
+.icon {
+  color: #c0c0c0;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  transition: color 0.15s;
+}
+
+.inputField:focus-within .icon {
+  color: var(--c-blue);
+}
+
+/* 주소 아이콘은 항상 파란색 (액션 가능을 암시) */
+.iconActive {
+  color: var(--c-blue);
+}
+
+/* ── Error ── */
 .error {
   color: #ef4444;
-  font-size: 0.875rem;
+  font-size: 0.82rem;
+  text-align: center;
+  margin-top: -8px;
+}
+
+/* ── Submit Button ── */
+.submitBtn {
+  width: 100%;
+  padding: 14px;
+  background: var(--c-blue);
+  border: none;
+  border-radius: 10px;
+  color: var(--c-white);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.submitBtn:hover {
+  background: #2589d0;
+}
+
+.submitBtn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* ── Switch Link ── */
+.switchLink {
+  font-size: 0.82rem;
+  color: #999;
   text-align: center;
 }
 
-.actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-  margin-top: 8px;
+.switchLink span {
+  color: var(--c-blue);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.switchLink span:hover {
+  text-decoration: underline;
 }

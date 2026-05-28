@@ -1,11 +1,51 @@
 import { type FormEvent, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAppState } from '../AppStateContext'
-import Button from '../../components/common/Button'
+import AppHeader from '../../components/common/AppHeader'
 import KakaoMapPicker, { type PickedLocation } from '../../components/KakaoMapPicker'
 import { signup, loginApi } from '../../lib/api'
 import { ROUTES } from '../../constants/routes'
 import styles from './signup.module.css'
+
+function IconPerson() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+      <circle cx="12" cy="7" r="4" />
+    </svg>
+  )
+}
+
+function IconLock() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+    </svg>
+  )
+}
+
+function IconMapPin() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z" />
+      <circle cx="12" cy="10" r="3" />
+    </svg>
+  )
+}
+
+function IconTag() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
+      <line x1="7" y1="7" x2="7.01" y2="7" />
+    </svg>
+  )
+}
 
 export default function SignupPage() {
   const [username, setUsername] = useState('')
@@ -50,7 +90,7 @@ export default function SignupPage() {
       })
       await loginApi({ username, password })
       login(username)
-      navigate(ROUTES.REGION)
+      navigate(ROUTES.MAIN)
     } catch (err) {
       setError(err instanceof Error ? err.message : '회원가입에 실패했습니다.')
     } finally {
@@ -60,70 +100,86 @@ export default function SignupPage() {
 
   return (
     <div className={styles.page}>
-      <h2 className={styles.title}>회원 가입</h2>
+      <AppHeader />
 
-      <div className={styles.formArea}>
-        <form className={styles.form} onSubmit={handleSubmit}>
-          <div className={styles.field}>
-            <label className={styles.label}>아이디</label>
-            <input
-              className={styles.input}
-              type="text"
-              value={username}
-              onChange={e => setUsername(e.target.value)}
-            />
-          </div>
-          <div className={styles.field}>
-            <label className={styles.label}>패스워드</label>
-            <input
-              className={styles.input}
-              type="password"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-            />
-          </div>
-          <div className={styles.field}>
-            <label className={styles.label}>패스워드 재확인</label>
-            <input
-              className={styles.input}
-              type="password"
-              value={confirmPassword}
-              onChange={e => setConfirmPassword(e.target.value)}
-            />
-          </div>
-          <div className={styles.field}>
-            <label className={styles.label}>거주지</label>
-            <div className={styles.addressRow}>
-              <input
-                className={styles.input}
-                type="text"
-                placeholder="지도에서 위치를 선택하세요"
-                value={homeLocation?.address ?? ''}
-                readOnly
-              />
-              <Button type="button" onClick={() => setShowPicker(true)}>지도</Button>
+      <div className={styles.contentArea}>
+        <div className={styles.contentInner}>
+          <form className={styles.formCard} onSubmit={handleSubmit}>
+            <h2 className={styles.title}>회원 가입</h2>
+
+            <div className={styles.fields}>
+              <div className={styles.inputField}>
+                <input
+                  className={styles.input}
+                  type="text"
+                  placeholder="아이디"
+                  value={username}
+                  onChange={e => setUsername(e.target.value)}
+                />
+                <span className={styles.icon}><IconPerson /></span>
+              </div>
+
+              <div className={styles.inputField}>
+                <input
+                  className={styles.input}
+                  type="password"
+                  placeholder="패스워드"
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                />
+                <span className={styles.icon}><IconLock /></span>
+              </div>
+
+              <div className={styles.inputField}>
+                <input
+                  className={styles.input}
+                  type="password"
+                  placeholder="패스워드 확인"
+                  value={confirmPassword}
+                  onChange={e => setConfirmPassword(e.target.value)}
+                />
+                <span className={styles.icon}><IconLock /></span>
+              </div>
+
+              {/* 주소: 아이콘 클릭 or 필드 클릭 → 지도 열기 */}
+              <div
+                className={`${styles.inputField} ${styles.clickable}`}
+                onClick={() => setShowPicker(true)}
+              >
+                <input
+                  className={styles.input}
+                  type="text"
+                  placeholder="거주지 주소 (클릭하여 지도에서 선택)"
+                  value={homeLocation?.address ?? ''}
+                  readOnly
+                />
+                <span className={`${styles.icon} ${styles.iconActive}`}><IconMapPin /></span>
+              </div>
+
+              <div className={styles.inputField}>
+                <input
+                  className={styles.input}
+                  type="text"
+                  placeholder="거주지 별칭  (예: 우리집)"
+                  value={alias}
+                  onChange={e => setAlias(e.target.value)}
+                />
+                <span className={styles.icon}><IconTag /></span>
+              </div>
             </div>
-          </div>
-          <div className={styles.field}>
-            <label className={styles.label}>거주지 별칭</label>
-            <input
-              className={styles.input}
-              type="text"
-              placeholder="예: Home"
-              value={alias}
-              onChange={e => setAlias(e.target.value)}
-            />
-          </div>
 
-          {error && <p className={styles.error}>{error}</p>}
+            {error && <p className={styles.error}>{error}</p>}
 
-          <div className={styles.actions}>
-            <Button type="button" onClick={() => navigate(ROUTES.MAIN)}>Back</Button>
-            <Button type="submit" variant="solid" disabled={loading}>
-              {loading ? '처리 중...' : 'Sign Up'}
-            </Button>
-          </div>
-        </form>
+            <button className={styles.submitBtn} type="submit" disabled={loading}>
+              {loading ? '처리 중...' : '회원가입 →'}
+            </button>
+
+            <p className={styles.switchLink}>
+              이미 계정이 있으신가요?{' '}
+              <span onClick={() => navigate(ROUTES.LOGIN)}>로그인</span>
+            </p>
+          </form>
+        </div>
       </div>
 
       {showPicker && (

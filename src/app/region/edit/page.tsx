@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAppState } from '../../AppStateContext'
-import Button from '../../../components/common/Button'
+import AppHeader from '../../../components/common/AppHeader'
 import RegionEditRow from '../../../components/region/RegionEditRow'
 import KakaoMapPicker, { type PickedLocation } from '../../../components/KakaoMapPicker'
 import type { FavoriteRegionRequest } from '../../../types/api'
@@ -53,7 +53,7 @@ export default function RegionEditPage() {
     setPickerIndex(null)
   }
 
-  async function handleEdit() {
+  async function handleSave() {
     setSaving(true)
     setError('')
     try {
@@ -68,36 +68,47 @@ export default function RegionEditPage() {
 
   return (
     <div className={styles.page}>
-      <div className={styles.header}>
-        <div className={styles.headerSpacer} />
-        <h1 className={styles.title}>My Map Edit</h1>
-        <div className={styles.headerSpacer} />
-      </div>
+      <AppHeader activeTab="region" />
 
-      <div className={styles.centerBlock}>
-        {loading && <p style={{ textAlign: 'center', color: '#888' }}>불러오는 중...</p>}
-        {error && <p style={{ textAlign: 'center', color: '#e53e3e' }}>{error}</p>}
+      <div className={styles.contentArea}>
+        <div className={styles.contentInner}>
+          <span className={styles.sectionLabel}>관심지역 편집</span>
 
-        {!loading && (
-          <div className={styles.listArea}>
-            {regions.map((region, i) => (
-              <RegionEditRow
-                key={region.id ?? `new-${i}`}
-                region={region}
-                onChange={updated => handleChange(i, updated)}
-                onDelete={() => handleDelete(i)}
-                onMapOpen={() => setPickerIndex(i)}
-              />
-            ))}
-            <button className={styles.addBtn} type="button" onClick={handleAdd}>+</button>
+          {loading && <p className={styles.statusMsg}>불러오는 중...</p>}
+          {error && <p className={styles.errorMsg}>{error}</p>}
+
+          {!loading && (
+            <div className={styles.listArea}>
+              {regions.map((region, i) => (
+                <RegionEditRow
+                  key={region.id ?? `new-${i}`}
+                  region={region}
+                  onChange={updated => handleChange(i, updated)}
+                  onDelete={() => handleDelete(i)}
+                  onMapOpen={() => setPickerIndex(i)}
+                />
+              ))}
+              <button className={styles.addBtn} type="button" onClick={handleAdd}>+</button>
+            </div>
+          )}
+
+          <div className={styles.actionRow}>
+            <button
+              className={styles.backBtn}
+              type="button"
+              onClick={() => navigate(ROUTES.REGION)}
+            >
+              ← 돌아가기
+            </button>
+            <button
+              className={styles.saveBtn}
+              type="button"
+              onClick={handleSave}
+              disabled={saving || loading}
+            >
+              {saving ? '저장 중...' : '저장 →'}
+            </button>
           </div>
-        )}
-
-        <div className={styles.actions}>
-          <Button onClick={() => navigate(ROUTES.REGION)}>Back</Button>
-          <Button variant="solid" onClick={handleEdit} disabled={saving || loading}>
-            {saving ? '저장 중...' : 'Edit'}
-          </Button>
         </div>
       </div>
 
