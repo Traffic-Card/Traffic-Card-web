@@ -140,7 +140,7 @@ export default function RoutePage() {
 
     markerData.forEach(({ pos, label, color }) => {
       const overlay = new kakao.maps.CustomOverlay({
-        position: new kakao.maps.LatLng(pos.lat, pos.lon),
+        position: new kakao.maps.LatLng(pos.latitude, pos.longitude),
         content: `
           <div style="
             background:${color};

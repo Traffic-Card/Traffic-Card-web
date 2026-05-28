@@ -1,0 +1,39 @@
+name: Deploy to Vercel
+
+# main 브랜치에 push(= PR merge)될 때 실행
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: 타입 검사 후 Vercel 배포
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 코드 체크아웃
+        uses: actions/checkout@v4
+
+      - name: Node.js 설정
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: 의존성 설치
+        run: npm ci
+
+      - name: TypeScript 타입 검사
+        run: npx tsc --noEmit
+
+      # 빌드는 Vercel이 자체적으로 수행
+      # VITE_* 환경 변수는 Vercel 대시보드에서 관리
+      - name: Vercel CLI 설치
+        run: npm install --global vercel@latest
+
+      - name: Vercel 프로덕션 배포
+        run: vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}

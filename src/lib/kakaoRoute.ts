@@ -54,7 +54,7 @@ export async function fetchRoute(
   }
 
   const summary = route.summary
-  const path: Array<{ lat: number; lon: number }> = []
+  const path: Array<{ latitude: number; longitude: number }> = []
 
   for (const section of route.sections ?? []) {
     for (const road of section.roads ?? []) {
