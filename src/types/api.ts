@@ -1,6 +1,4 @@
-export type AppView = 'main' | 'login' | 'signup' | 'map' | 'edit'
-
-export type HomeRegionRequest = {
+export type SignupHomeRegion = {
   alias: string
   address: string
   regionName: string
@@ -16,7 +14,7 @@ export type LoginRequest = {
 export type SignupRequest = {
   username: string
   password: string
-  homeRegion: HomeRegionRequest
+  homeRegion: SignupHomeRegion
 }
 
 export type MemberDetailResponse = {

@@ -1,0 +1,38 @@
+.page {
+  flex: 1;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #ebebeb; /* 스크롤 시 양 옆 배경 유지 */
+}
+
+/* ── Slider Area ── */
+.sliderArea {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  /* 배경은 .page의 #ebebeb 그대로 */
+}
+
+.sliderInner {
+  width: 1000px;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 40px 28px 64px;
+}
+
+.sliderLabel {
+  font-size: 1rem;
+  font-weight: 700;
+  color: rgba(48, 47, 47, 0.4);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding-left: 2px;
+}
+
+.sliderLabelSection {
+  margin-top: 40px;
+}

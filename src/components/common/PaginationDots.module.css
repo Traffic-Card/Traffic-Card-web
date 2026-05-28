@@ -1,0 +1,20 @@
+.dots {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid var(--c-dark);
+  background: transparent;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.active {
+  background: var(--c-blue);
+  border-color: var(--c-blue);
+}

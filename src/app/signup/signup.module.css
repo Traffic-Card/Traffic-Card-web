@@ -1,0 +1,156 @@
+.page {
+  flex: 1;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── 좌우 #ebebeb / 중앙 #ffffff ── */
+.contentArea {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  background: #ebebeb;
+}
+
+.contentInner {
+  width: 1000px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+}
+
+/* ── Form Card ── */
+.formCard {
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--c-dark);
+  text-align: center;
+  letter-spacing: -0.3px;
+}
+
+/* ── Input Fields ── */
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.inputField {
+  display: flex;
+  align-items: center;
+  background: #f4f4f4;
+  border-radius: 10px;
+  padding: 0 16px;
+  gap: 12px;
+  transition: background 0.15s;
+}
+
+.inputField:focus-within {
+  background: #eef6fd;
+}
+
+/* 주소 필드: 전체 클릭 가능 */
+.clickable {
+  cursor: pointer;
+}
+
+.clickable:hover {
+  background: #eeeeee;
+}
+
+.input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 14px 0;
+  font-size: 0.95rem;
+  outline: none;
+  color: var(--c-dark);
+}
+
+.input::placeholder {
+  color: #b0b0b0;
+}
+
+/* readOnly 커서 */
+.clickable .input {
+  cursor: pointer;
+}
+
+.icon {
+  color: #c0c0c0;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  transition: color 0.15s;
+}
+
+.inputField:focus-within .icon {
+  color: var(--c-blue);
+}
+
+/* 주소 아이콘은 항상 파란색 (액션 가능을 암시) */
+.iconActive {
+  color: var(--c-blue);
+}
+
+/* ── Error ── */
+.error {
+  color: #ef4444;
+  font-size: 0.82rem;
+  text-align: center;
+  margin-top: -8px;
+}
+
+/* ── Submit Button ── */
+.submitBtn {
+  width: 100%;
+  padding: 14px;
+  background: var(--c-blue);
+  border: none;
+  border-radius: 10px;
+  color: var(--c-white);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.submitBtn:hover {
+  background: #2589d0;
+}
+
+.submitBtn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* ── Switch Link ── */
+.switchLink {
+  font-size: 0.82rem;
+  color: #999;
+  text-align: center;
+}
+
+.switchLink span {
+  color: var(--c-blue);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.switchLink span:hover {
+  text-decoration: underline;
+}

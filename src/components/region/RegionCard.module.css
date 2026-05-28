@@ -1,0 +1,25 @@
+.card {
+  flex: 1;
+  min-width: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.09);
+  display: flex;
+  flex-direction: column;
+  background: var(--c-white);
+}
+
+/* 맵: 카드 상단 edge-to-edge */
+.mapArea {
+  height: 540px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* 회색 구분선 */
+.divider {
+  height: 1px;
+  background: #e8e8e8;
+  flex-shrink: 0;
+}

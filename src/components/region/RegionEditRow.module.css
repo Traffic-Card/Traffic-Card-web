@@ -1,0 +1,90 @@
+.row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* ── Input Fields ── */
+.inputField {
+  display: flex;
+  align-items: center;
+  background: #f4f4f4;
+  border-radius: 10px;
+  padding: 0 14px;
+  gap: 10px;
+  transition: background 0.15s;
+  /* 별칭 필드는 기본 flex: 1 */
+  flex: 1;
+}
+
+.inputField:focus-within {
+  background: #eef6fd;
+}
+
+/* 주소 필드: 더 넓게 */
+.clickable {
+  flex: 2;
+  cursor: pointer;
+}
+
+.clickable:hover {
+  background: #eeeeee;
+}
+
+.input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 12px 0;
+  font-size: 0.88rem;
+  outline: none;
+  color: var(--c-dark);
+  min-width: 0;
+}
+
+.input::placeholder {
+  color: #b8b8b8;
+}
+
+.clickable .input {
+  cursor: pointer;
+}
+
+.icon {
+  color: #c8c8c8;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  transition: color 0.15s;
+}
+
+.inputField:focus-within .icon {
+  color: var(--c-blue);
+}
+
+/* 주소 아이콘: 항상 파란색 */
+.iconActive {
+  color: var(--c-blue);
+}
+
+/* ── Delete Button ── */
+.deleteBtn {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border: none;
+  border-radius: 8px;
+  background: #fff0f0;
+  color: #ef4444;
+  font-size: 0.82rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, color 0.15s;
+}
+
+.deleteBtn:hover {
+  background: #ef4444;
+  color: var(--c-white);
+}
