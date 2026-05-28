@@ -1,5 +1,5 @@
 import type { FavoriteRegionResponse } from '../../types/api'
-import TrafficMap from '../TrafficMap'
+import TrafficMap from '../map/TrafficMap'
 import RegionWeather from './RegionWeather'
 import styles from './RegionCard.module.css'
 

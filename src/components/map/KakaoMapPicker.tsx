@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
-import Button from './common/Button'
+import Button from '../common/Button'
 import styles from './KakaoMapPicker.module.css'
-import { loadKakaoMaps } from '../lib/kakaoMaps'
+import { loadKakaoMaps } from '../../lib/kakaoMaps'
 
 export type PickedLocation = {
   address: string

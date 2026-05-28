@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { useAppState } from '../../app/AppStateContext'
+import { useAppState } from '../../context/AppStateContext'
 import { ROUTES } from '../../constants/routes'
 import styles from './AppHeader.module.css'
 import logoUrl from '../../assets/logo.png'

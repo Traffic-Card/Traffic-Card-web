@@ -1,9 +1,9 @@
 import { type FormEvent, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useAppState } from '../AppStateContext'
+import { useAppState } from '../../context/AppStateContext'
 import AppHeader from '../../components/common/AppHeader'
-import KakaoMapPicker, { type PickedLocation } from '../../components/KakaoMapPicker'
-import { signup, loginApi } from '../../lib/api'
+import KakaoMapPicker, { type PickedLocation } from '../../components/map/KakaoMapPicker'
+import { signup, login as loginApi } from '../../lib/api'
 import { ROUTES } from '../../constants/routes'
 import styles from './signup.module.css'
 

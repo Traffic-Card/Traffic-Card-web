@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AppHeader from '../../components/common/AppHeader'
-import { useAppState } from '../AppStateContext'
+import { useAppState } from '../../context/AppStateContext'
 import { getRegions } from '../../lib/api'
 import { loadKakaoMaps } from '../../lib/kakaoMaps'
 import {
@@ -117,7 +117,7 @@ export default function RoutePage() {
 
     /* 폴리라인 */
     const linePath = result.path.map(
-      p => new kakao.maps.LatLng(p.lat, p.lon),
+      p => new kakao.maps.LatLng(p.latitude, p.longitude),
     )
     const polyline = new kakao.maps.Polyline({
       path:          linePath,

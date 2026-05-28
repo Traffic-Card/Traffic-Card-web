@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { AppStateProvider } from './app/AppStateContext'
+import { AppStateProvider } from './context/AppStateContext'
 import MainPage from './app/main/page'
 import LoginPage from './app/login/page'
 import SignupPage from './app/signup/page'

@@ -64,7 +64,7 @@ export default function KoreaWeatherSection() {
   /* ── 10개 도시 날씨 일괄 조회 ── */
   useEffect(() => {
     Promise.allSettled(
-      KOREA_LOCATIONS.map(city => fetchWeather(city.lat, city.lon))
+      KOREA_LOCATIONS.map(city => fetchWeather(city.latitude, city.longitude))
     ).then(results => {
       setCities(KOREA_LOCATIONS.map((city, i) => ({
         city,
@@ -87,7 +87,7 @@ export default function KoreaWeatherSection() {
     cities.forEach(({ city, weather }) => {
       if (!weather) return
       const overlay = new window.kakao.maps.CustomOverlay({
-        position: new window.kakao.maps.LatLng(city.lat, city.lon),
+        position: new window.kakao.maps.LatLng(city.latitude, city.longitude),
         content: overlayHTML(city.name, weather),
         yAnchor: 1.05,
       })

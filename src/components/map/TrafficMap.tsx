@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import styles from './TrafficMap.module.css'
-import { loadKakaoMaps } from '../lib/kakaoMaps'
+import { loadKakaoMaps } from '../../lib/kakaoMaps'
 
 type Props = {
   latitude: number

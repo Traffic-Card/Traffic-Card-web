@@ -46,7 +46,7 @@ export async function signup(data: SignupRequest): Promise<void> {
   })
 }
 
-export async function loginApi(data: LoginRequest): Promise<TokenResponse> {
+export async function login(data: LoginRequest): Promise<TokenResponse> {
   const tokens = await request<TokenResponse>('/api/v1/members/login', {
     method: 'POST',
     body: JSON.stringify(data),

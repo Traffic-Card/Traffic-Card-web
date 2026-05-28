@@ -24,7 +24,7 @@ export type RouteResult = {
   duration: number   // 초
   taxiFare: number   // 원
   tollFare: number   // 원
-  path: Array<{ lat: number; lon: number }>
+  path: Array<{ latitude: number; longitude: number }>
 }
 
 export async function fetchRoute(
@@ -60,7 +60,7 @@ export async function fetchRoute(
     for (const road of section.roads ?? []) {
       const vx: number[] = road.vertexes ?? []
       for (let i = 0; i < vx.length - 1; i += 2) {
-        path.push({ lon: vx[i], lat: vx[i + 1] })
+        path.push({ longitude: vx[i], latitude: vx[i + 1] })
       }
     }
   }

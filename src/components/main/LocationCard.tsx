@@ -1,5 +1,5 @@
 import type { FixedLocation } from '../../constants/locations'
-import TrafficMap from '../TrafficMap'
+import TrafficMap from '../map/TrafficMap'
 import styles from './LocationCard.module.css'
 
 type Props = {

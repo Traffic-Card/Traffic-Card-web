@@ -1,8 +1,8 @@
 import { type FormEvent, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useAppState } from '../AppStateContext'
+import { useAppState } from '../../context/AppStateContext'
 import AppHeader from '../../components/common/AppHeader'
-import { loginApi } from '../../lib/api'
+import { login as loginApi } from '../../lib/api'
 import { ROUTES } from '../../constants/routes'
 import styles from './login.module.css'
 
