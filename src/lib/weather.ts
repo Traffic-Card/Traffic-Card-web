@@ -1,4 +1,4 @@
-const WEATHER_KEY = import.meta.env.VITE_OPEN_WEATHER_API_KEY
+const BASE_URL = (import.meta.env.VITE_API_BASE_URL as string) ?? ''
 
 export type WeatherInfo = {
   temp: number
@@ -19,19 +19,10 @@ export async function fetchWeather(lat: number, lon: number): Promise<WeatherInf
   const hit = cache.get(key)
   if (hit && Date.now() < hit.expiresAt) return hit.data
 
-  const url =
-    `https://api.openweathermap.org/data/2.5/weather` +
-    `?lat=${lat}&lon=${lon}&appid=${WEATHER_KEY}&units=metric&lang=ko`
-  const res = await fetch(url)
+  const res = await fetch(`${BASE_URL}/api/v1/weather?lat=${lat}&lon=${lon}`)
   if (!res.ok) throw new Error(`Weather API error: ${res.status}`)
-  const json = await res.json()
-  const data: WeatherInfo = {
-    temp:        Math.round(json.main.temp),
-    tempMin:     Math.round(json.main.temp_min),
-    tempMax:     Math.round(json.main.temp_max),
-    description: json.weather[0].description,
-    iconCode:    json.weather[0].icon,
-  }
+
+  const data: WeatherInfo = await res.json()
   cache.set(key, { data, expiresAt: Date.now() + TTL_MS })
   return data
 }

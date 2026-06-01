@@ -1,21 +1,6 @@
-/**
- * Kakao Directions REST API wrapper
- *
- * 필요 환경 변수:
- *   VITE_KAKAO_REST_API_KEY=<카카오 디벨로퍼스 REST API 키>
- *
- * ※ JS 앱 키(VITE_KAKAO_MAP_API_KEY)와 별개입니다.
- *   카카오 디벨로퍼스 → 앱 → 앱 키 → REST API 키 를 복사해서 .env.local에 추가하세요.
- */
+import { getAccessToken } from './api'
 
-const REST_KEY = import.meta.env.VITE_KAKAO_REST_API_KEY as string
-
-if (!REST_KEY) {
-  console.warn(
-    '[kakaoRoute] VITE_KAKAO_REST_API_KEY가 없습니다. ' +
-    '.env.local에 추가하고 dev 서버를 재시작하세요.',
-  )
-}
+const BASE_URL = (import.meta.env.VITE_API_BASE_URL as string) ?? ''
 
 export type RoutePriority = 'RECOMMEND' | 'TIME' | 'DISTANCE'
 
@@ -28,50 +13,25 @@ export type RouteResult = {
 }
 
 export async function fetchRoute(
-  origin: { lat: number; lon: number; name?: string },
-  dest:   { lat: number; lon: number; name?: string },
+  origin: { latitude: number; longitude: number; name?: string },
+  dest:   { latitude: number; longitude: number; name?: string },
   priority: RoutePriority = 'RECOMMEND',
 ): Promise<RouteResult> {
-  const url = new URL('https://apis-navi.kakaomobility.com/v1/directions')
-  url.searchParams.set('origin',      `${origin.lon},${origin.lat}`)
-  url.searchParams.set('destination', `${dest.lon},${dest.lat}`)
-  url.searchParams.set('priority',    priority)
-  url.searchParams.set('car_type',    '1')
-
-  const res = await fetch(url.toString(), {
-    headers: { Authorization: `KakaoAK ${REST_KEY}` },
+  const token = getAccessToken()
+  const params = new URLSearchParams({
+    originLat: String(origin.latitude),
+    originLon: String(origin.longitude),
+    destLat:   String(dest.latitude),
+    destLon:   String(dest.longitude),
+    priority,
   })
 
-  if (!res.ok) {
-    throw new Error(`Kakao Directions API 오류: HTTP ${res.status}`)
-  }
+  const res = await fetch(`${BASE_URL}/api/v1/route?${params}`, {
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
+  })
+  if (!res.ok) throw new Error(`Route API 오류: HTTP ${res.status}`)
 
-  const json = await res.json()
-  const route = json.routes?.[0]
-
-  if (!route || route.result_code !== 0) {
-    throw new Error(route?.result_msg ?? '경로를 찾을 수 없습니다.')
-  }
-
-  const summary = route.summary
-  const path: Array<{ latitude: number; longitude: number }> = []
-
-  for (const section of route.sections ?? []) {
-    for (const road of section.roads ?? []) {
-      const vx: number[] = road.vertexes ?? []
-      for (let i = 0; i < vx.length - 1; i += 2) {
-        path.push({ longitude: vx[i], latitude: vx[i + 1] })
-      }
-    }
-  }
-
-  return {
-    distance: summary.distance  ?? 0,
-    duration: summary.duration  ?? 0,
-    taxiFare: summary.fare?.taxi ?? 0,
-    tollFare: summary.fare?.toll ?? 0,
-    path,
-  }
+  return res.json()
 }
 
 /** 초 → "N시간 M분" 문자열 */

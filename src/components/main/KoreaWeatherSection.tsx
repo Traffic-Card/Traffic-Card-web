@@ -61,7 +61,7 @@ export default function KoreaWeatherSection() {
     return () => { destroyed = true; mapRef.current = null }
   }, [])
 
-  /* ── 10개 도시 날씨 일괄 조회 ── */
+  /* ── 도시 날씨 일괄 조회 ── */
   useEffect(() => {
     Promise.allSettled(
       KOREA_LOCATIONS.map(city => fetchWeather(city.latitude, city.longitude))

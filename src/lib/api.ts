@@ -2,6 +2,7 @@ import type {
   SignupRequest,
   LoginRequest,
   TokenResponse,
+  MemberDetailResponse,
   FavoriteRegionRequest,
   FavoriteRegionResponse,
 } from '../types/api'
@@ -39,8 +40,8 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
   return res.json()
 }
 
-export async function signup(data: SignupRequest): Promise<void> {
-  await request<void>('/api/v1/members/signup', {
+export async function signup(data: SignupRequest): Promise<MemberDetailResponse> {
+  return request<MemberDetailResponse>('/api/v1/members/signup', {
     method: 'POST',
     body: JSON.stringify(data),
   })
@@ -59,8 +60,8 @@ export async function getRegions(): Promise<FavoriteRegionResponse[]> {
   return request<FavoriteRegionResponse[]>('/api/v1/regions')
 }
 
-export async function putRegions(regions: FavoriteRegionRequest[]): Promise<void> {
-  await request<void>('/api/v1/regions', {
+export async function putRegions(regions: FavoriteRegionRequest[]): Promise<FavoriteRegionResponse[]> {
+  return request<FavoriteRegionResponse[]>('/api/v1/regions', {
     method: 'PUT',
     body: JSON.stringify({ regions }),
   })
