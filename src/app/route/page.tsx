@@ -89,8 +89,8 @@ export default function RoutePage() {
 
     try {
       const res = await fetchRoute(
-        { lat: origin.latitude,  lon: origin.longitude,  name: origin.alias },
-        { lat: dest.latitude,    lon: dest.longitude,    name: dest.alias },
+        { latitude: origin.latitude,  longitude: origin.longitude,  name: origin.alias },
+        { latitude: dest.latitude,    longitude: dest.longitude,    name: dest.alias },
         priority,
       )
       setResult(res)
