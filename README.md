@@ -15,8 +15,8 @@
 
 **Backend**
 
-![Spring Boot](https://skillicons.dev/icons?i=spring)
-![Java](https://skillicons.dev/icons?i=java)
+![Express](https://skillicons.dev/icons?i=express)
+![JavaScript](https://skillicons.dev/icons?i=js)
 ![Docker](https://skillicons.dev/icons?i=docker)
 ![MySQL](https://skillicons.dev/icons?i=mysql)
 ![Nginx](https://skillicons.dev/icons?i=nginx)
