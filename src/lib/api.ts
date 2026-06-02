@@ -33,6 +33,10 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
 
   const res = await fetch(`${BASE_URL}${path}`, { ...options, headers })
   if (!res.ok) {
+    if (res.status === 401) {
+      clearTokens()
+      window.dispatchEvent(new CustomEvent('auth:expired'))
+    }
     const body = await res.json().catch(() => ({}))
     throw new Error(body.message ?? `HTTP ${res.status}`)
   }

@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, type ReactNode } from 'react'
+import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
 import { clearTokens, getAccessToken } from '../lib/api'
 
 type AppState = {
@@ -26,6 +26,12 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
     localStorage.removeItem('username')
     clearTokens()
   }
+
+  /* 토큰 만료 시 자동 로그아웃 */
+  useEffect(() => {
+    window.addEventListener('auth:expired', logout)
+    return () => window.removeEventListener('auth:expired', logout)
+  }, [])
 
   return (
     <AppStateContext.Provider value={{ isLoggedIn, username, login, logout }}>
